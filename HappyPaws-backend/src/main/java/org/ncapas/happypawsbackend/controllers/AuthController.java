@@ -101,6 +101,7 @@ public class AuthController {
                     .httpOnly(true)
                     .secure(true)
                     .sameSite("None")
+                    .domain("happypaws-ieia.onrender.com")
                     .path("/")
                     .maxAge(24 * 60 * 60)
                     .build();
@@ -114,6 +115,7 @@ public class AuthController {
                     .httpOnly(true)
                     .secure(true)
                     .sameSite("None")
+                    .domain("happypaws-ieia.onrender.com")
                     .path("/")
                     .maxAge(7 * 24 * 60 * 60)
                     .build();
@@ -147,6 +149,7 @@ public class AuthController {
                 .httpOnly(true)
                 .secure(true)
                 .sameSite("None")
+                .domain("happypaws-ieia.onrender.com")
                 .path("/")
                 .maxAge(24 * 60 * 60)
                 .build();
@@ -176,6 +179,7 @@ public class AuthController {
                 .path("/")
                 .maxAge(0)
                 .sameSite("None")
+                .domain("happypaws-ieia.onrender.com")
                 .build();
 
         ResponseCookie deleteAccessToken = ResponseCookie.from("access_token", "")
@@ -184,6 +188,7 @@ public class AuthController {
                 .path("/")
                 .maxAge(0)
                 .sameSite("None")
+                .domain("happypaws-ieia.onrender.com")
                 .build();
 
         response.addHeader(HttpHeaders.SET_COOKIE, deleteRefreshToken.toString());

@@ -57,7 +57,9 @@ public class AuthConfig  {
                 .cors(cors -> cors
                         .configurationSource(request -> {
                             CorsConfiguration config = new CorsConfiguration();
-                            config.setAllowedOriginPatterns(List.of("https://*.vercel.app"));
+                            config.setAllowedOriginPatterns(List.of(
+                                    "https://happypaws-ieia.onrender.com"
+                            ));
                             config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
                             config.setAllowedHeaders(List.of("*"));
                             config.setAllowCredentials(true);
@@ -130,7 +132,9 @@ public class AuthConfig  {
     @Bean
     public org.springframework.web.cors.CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOriginPatterns(List.of("https://*.vercel.app"));
+        config.setAllowedOriginPatterns(List.of(
+                "https://happypaws-ieia.onrender.com"
+        ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
