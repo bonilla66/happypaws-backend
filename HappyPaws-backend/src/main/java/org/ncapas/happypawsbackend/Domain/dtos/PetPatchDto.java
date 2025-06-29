@@ -6,6 +6,7 @@ import org.ncapas.happypawsbackend.Domain.Enums.PetStatus;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 public class PetPatchDto {
@@ -22,6 +23,7 @@ public class PetPatchDto {
     private String description;
     private String history;
     private String photoURL;
+    private UUID imageId;
     private PetStatus status;
     private Integer shelterId;
     private Integer breedId;

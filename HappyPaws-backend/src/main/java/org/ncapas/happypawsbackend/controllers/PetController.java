@@ -12,7 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -48,9 +50,16 @@ public class PetController {
 
     @PatchMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'COLABORADOR')")
-    public ResponseEntity<PetResponse> patchPet(@PathVariable UUID id, @RequestBody PetPatchDto dto) {
-        PetResponse updated = petService.patchPet(id, dto);
-        return ResponseEntity.ok(updated);
+    public ResponseEntity<?> patchPet(@PathVariable UUID id, @RequestBody PetPatchDto dto) {
+        try {
+            PetResponse updated = petService.patchPet(id, dto);
+            return ResponseEntity.ok(updated);
+        } catch (RuntimeException ex) {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", "Error al actualizar la mascota");
+            errorResponse.put("detalle", ex.getMessage() != null ? ex.getMessage() : "Error inesperado");
+            return ResponseEntity.badRequest().body(errorResponse);
+        }
     }
 
 

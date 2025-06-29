@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -216,13 +217,16 @@ public class PetService {
             }
             image.setImgURL(dto.getPhotoURL());
         }
-
+        if (dto.getImageId() != null) {
+            Image nuevaImagen = imageRepository.findById(dto.getImageId())
+                    .orElseThrow(() -> new RuntimeException("Imagen no encontrada con ID: " + dto.getImageId()));
+            pet.setImage(nuevaImagen);
+        }
         if (dto.getStatus() != null) pet.setStatus(dto.getStatus());
-
-
         if (dto.getBreedId() != null) {
             pet.setBreed(breedRepository.findById(dto.getBreedId())
-                    .orElseThrow(() -> new RuntimeException("Raza no encontrada")));
+                    .orElseThrow(() -> new RuntimeException("Raza con ID " + dto.getBreedId() + " no encontrada")));
+
         } else {
             pet.setBreed(null);
         }
@@ -236,7 +240,7 @@ public class PetService {
         // esto para actualizar atributos, aunque este nulll
         if (dto.getPetAttributeIds() != null) {
             if (dto.getPetAttributeIds().isEmpty()) {
-                pet.setAttributes(List.of()); // Limpiar todos
+                pet.setAttributes(new ArrayList<>()); // ← Esto evita la excepción
             } else {
                 List<Integer> ids = dto.getPetAttributeIds();
                 List<Pet_Attribute> nuevos = petAttributeRepository.findAllById(ids);
